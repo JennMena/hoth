@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "217080474109",
+    "project_id": "hoth-hackathon-app",
+    "storage_bucket": "hoth-hackathon-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217080474109:android:98e0806fd62c5aae12d194",
+        "android_client_info": {
+          "package_name": "com.example.hothapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217080474109-rjckpn4qq0da73opqumg9gcojo1lieic.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZUP9uPJryf44W0VaN3lBFVO9CcVz-iqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217080474109-rjckpn4qq0da73opqumg9gcojo1lieic.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
