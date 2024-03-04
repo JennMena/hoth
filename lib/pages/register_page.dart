@@ -1,42 +1,40 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hothapp/helper/helper_function.dart';
-import 'package:hothapp/pages/home_page.dart';
-import 'package:hothapp/pages/register_page.dart';
+import 'package:hothapp/pages/login_page.dart';
 import 'package:hothapp/services/auth_service.dart';
-import 'package:hothapp/services/database_service.dart';
 import 'package:hothapp/shared/widgets/widgets.dart';
+import 'package:hothapp/pages/home_page.dart';
+//import 'package:hothapp/pages/helper_function.dart';
 
-class LoginPage extends StatefulWidget{
-  const LoginPage({Key? key}) : super(key: key);
+
+class RegisterPage extends StatefulWidget{
+  const RegisterPage({Key?key}):super(key: key);
+
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
+
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage>{
+  bool _isLoading = false;
+
   final formKey = GlobalKey<FormState>();
 
   String email = "";
-  String password = "";
+  String password = ""; 
+  String name = "";
 
-  bool _isLoading = false;
   AuthService authService = AuthService();
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(
-                  color: Theme.of(context).primaryColor),
-            )
-          : SingleChildScrollView(
+      body: _isLoading ? Center(child: CircularProgressIndicator(color: Theme.of(context).primaryColor),)
+      : SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
           child: Form(
@@ -48,31 +46,58 @@ class _LoginPageState extends State<LoginPage> {
                 const Text("BruinBites & Books", 
                 style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10,), 
-                const Text("Login to find how to have lunch with!", 
+                const Text("Create you account to meet other awesome students", 
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400),),
-                Image.asset("assets/login.png"),
+                Image.asset("assets/register.png"),
+                //NAME FIELD
                 TextFormField(
                   decoration: textInputDecoration.copyWith(
-                    labelText: "Email address",
-                    prefixIcon: Icon(Icons.email, color: Theme.of(context).primaryColor),
+                    labelText: "Your name",
+                    prefixIcon: Icon(Icons.person, color: Theme.of(context).primaryColor),
                   ),
                   onChanged: (val){
                     setState(() {
-                      email = val;
-                      //print(email);
+                      name = val;
                     });
                   },
                   //Check if text entered was an email - validation
                   validator: (val) {
-                    return RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(val!)
-                        ? null
-                        : "Please enter a valid email";
+                    if(val!.isNotEmpty)
+                    {
+                      return null;  
+                    }
+                    else
+                    {
+                      return "Don't be shy, what's your name?";
+                    }
                   },
 
                 ),
                 const SizedBox(height: 15,),
+                //EMAIL FIELD
+                TextFormField(
+                    decoration: textInputDecoration.copyWith(
+                      labelText: "Email address",
+                      prefixIcon: Icon(Icons.email, color: Theme.of(context).primaryColor),
+                    ),
+                    onChanged: (val){
+                      setState(() {
+                        email = val;
+                        //print(email);
+                      });
+                    },
+                    //Check if text entered was an email - validation
+                    validator: (val) {
+                      return RegExp(
+                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(val!)
+                          ? null
+                          : "Please enter a valid email";
+                    },
+
+                  ),
+                const SizedBox(height: 15,),
+                //PASWORD FIELD
                 TextFormField(
                   obscureText: true,
                   decoration: textInputDecoration.copyWith(
@@ -104,9 +129,9 @@ class _LoginPageState extends State<LoginPage> {
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25))),
-                    child: const Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 16)),
+                    child: const Text("Sign Up", style: TextStyle(color: Colors.white, fontSize: 16)),
                     onPressed: (){
-                      login();
+                      register();
                     },
                   )
                 ),
@@ -115,13 +140,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Text.rich(
                   TextSpan(
-                    text: "Don't have an account yet? ",
+                    text: "Already have an account? ",
                     children: <TextSpan>[
                       TextSpan(
-                        text: "Sign Up",
+                        text: "Sign In",
                         style: const TextStyle(color: Colors.black, decoration: TextDecoration.underline),
                         recognizer: TapGestureRecognizer()..onTap = (){
-                            nextScreen(context, const RegisterPage());
+                            nextScreen(context, const LoginPage());
                         }
                       ),
 
@@ -137,22 +162,19 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
- login() async {
+ register() async {
     if (formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
       await authService
-          .loginWithUserNameandPassword(email, password)
+          .registerUserWithEmailandPassword(name, email, password)
           .then((value) async {
         if (value == true) {
-          QuerySnapshot snapshot =
-              await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
-                  .gettingUserData(email);
-        
+          // saving the shared preference state
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
-          await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
+          await HelperFunctions.saveUserNameSF(name);
           nextScreenReplace(context, const HomePage());
         } else {
           showSnackbar(context, Colors.red, value);
@@ -163,5 +185,4 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
   }
-
 }
