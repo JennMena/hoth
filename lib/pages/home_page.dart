@@ -13,7 +13,23 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context)
   {
       return Scaffold(
-        body: Center(child: Text("HomePage")),
+        appBar:AppBar(
+          actions: [
+            IconButton(onPressed: (){
+              nextScreen(context, const SearchPage());
+            }, 
+            icon: const Icon(
+              Icons.search,
+              ))
+          ]
+          elevation: 0,         
+          centerTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text(
+            "People", 
+          style: TextStyle(color: Colors.white, fontSize: 27, fontWeight: FontWeight.bold),
+          )
+          ),
       );
   }
 }
