@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 const textInputDecoration = InputDecoration(
   labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w300),
-  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 245, 86, 54), width: 2)),
+  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 54, 153, 245), width: 2)),
 
-  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFee7b64), width: 2)),
+  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 100, 231, 238), width: 2)),
 
   errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Color.fromARGB(255, 255, 42, 0), width: 2)),
 

@@ -6,5 +6,5 @@ class Constants{
   static String messagingSenderId = "217080474109";
   static String projectId = "hoth-hackathon-app";
 
-  final primaryColor = const Color(0xFFee7b64);
+  final primaryColor = Color.fromARGB(255, 40, 171, 180);
 }

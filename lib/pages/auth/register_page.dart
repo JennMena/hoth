@@ -15,6 +15,18 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  //Variables for the books and restaurants:
+  bool _checkBoxValueR1 = false;
+  bool _checkBoxValueR2 = false;
+  bool _checkBoxValueR3 = false;
+  bool _checkBoxValueR4 = false;
+  bool _checkBoxValueB1 = false;
+  bool _checkBoxValueB2 = false;
+  bool _checkBoxValueB3 = false;
+  bool _checkBoxValueB4 = false;
+
+
   bool _isLoading = false;
   final formKey = GlobalKey<FormState>();
   String email = "";
@@ -39,16 +51,22 @@ class _RegisterPageState extends State<RegisterPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         const Text(
-                          "Groupie",
+                          "BruinBites & Books",
                           style: TextStyle(
                               fontSize: 40, fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 10),
                         const Text(
-                            "Create your account now to chat and explore",
+                            "Create your account now to meet new people and try different food",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w400)),
-                        Image.asset("assets/register.png"),
+                        const SizedBox(height: 30),
+                        const Text(
+                            "The American Heart Association is this group that cares a lot about our hearts and health. They did a survey in 2022, and guess what? 91% of parents said that when they eat meals together with their family, they feel less stressed. And you know what else? 84% of grown-ups want to have more meals with other people. It’s not just about food; it’s about feeling less stressed, being closer to loved ones, and taking a moment to enjoy life. 🍽️❤️",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w400)),
+                        //Image.asset("assets/food1.jpg"),
+                        const SizedBox(height: 50),
                         TextFormField(
                           decoration: textInputDecoration.copyWith(
                               labelText: "Full Name",
@@ -119,6 +137,105 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(
                           height: 20,
                         ),
+                        const SizedBox(height: 15),
+const Text(
+    "Choose your favorite restaurants:",
+    style: TextStyle(
+        fontSize: 15, fontWeight: FontWeight.bold)),
+
+const SizedBox(height: 20), 
+
+CheckboxListTile(
+  title: Text("Bruin Plate"),
+  value: _checkBoxValueR1,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueR1 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("De Neve"),
+  value: _checkBoxValueR2,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueR2 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("Northern Lights"),
+  value: _checkBoxValueR3,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueR3 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("Kerckhoff Coffee House"),
+  value: _checkBoxValueR4,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueR4 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+
+const SizedBox(height: 40), 
+const Text(
+    "Choose what you like to read:",
+    style: TextStyle(
+        fontSize: 15, fontWeight: FontWeight.bold)),
+
+const SizedBox(height: 20), 
+CheckboxListTile(
+  title: Text("Science Fiction"),
+  value: _checkBoxValueB1,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueB1 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("Fantasy"),
+  value: _checkBoxValueB2,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueB2 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("Personal Develpment"),
+  value: _checkBoxValueB3,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueB3 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+CheckboxListTile(
+  title: Text("Thriller"),
+  value: _checkBoxValueB4,
+  onChanged: (bool? newValue) {
+    setState(() {
+      _checkBoxValueB4 = newValue!;
+    });
+  },
+  controlAffinity: ListTileControlAffinity.leading,
+),
+
+const SizedBox(height: 40), 
+
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(

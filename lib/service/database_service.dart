@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -16,8 +18,10 @@ class DatabaseService {
       "fullName": fullName,
       "email": email,
       "groups": [],
-      "profilePic": "",
+      "profilePic": 0,
       "uid": uid,
+      "Books": [1, 0, 0],
+      "Food": [1, 0, 0],
     });
   }
 
