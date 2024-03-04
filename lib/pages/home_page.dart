@@ -1,14 +1,13 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:hothapp/helper/helper_function.dart';
-import 'package:hothapp/pages/login_page.dart';
+import 'package:hothapp/pages/auth/login_page.dart';
 import 'package:hothapp/pages/profile_page.dart';
-import 'package:hothapp/services/auth_service.dart';
-import 'package:hothapp/services/database_service.dart';
+import 'package:hothapp/pages/search_page.dart';
+import 'package:hothapp/service/auth_service.dart';
+import 'package:hothapp/service/database_service.dart';
 import 'package:hothapp/shared/widgets/widgets.dart';
+import 'package:hothapp/widgets/group_tile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -68,7 +67,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                nextScreen(context, /*const SearchPage()*/ const HomePage());
+                nextScreen(context, const SearchPage());
               },
               icon: const Icon(
                 Icons.search,
@@ -288,12 +287,10 @@ class _HomePageState extends State<HomePage> {
                 itemCount: snapshot.data['groups'].length,
                 itemBuilder: (context, index) {
                   int reverseIndex = snapshot.data['groups'].length - index - 1;
-                  return;
-                  
-                  /*GroupTile(
+                  return GroupTile(
                       groupId: getId(snapshot.data['groups'][reverseIndex]),
                       groupName: getName(snapshot.data['groups'][reverseIndex]),
-                      userName: snapshot.data['fullName']);*/
+                      userName: snapshot.data['fullName']);
                 },
               );
             } else {

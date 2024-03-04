@@ -1,12 +1,9 @@
 
-
 import 'package:flutter/material.dart';
+import 'package:hothapp/pages/auth/login_page.dart';
 import 'package:hothapp/pages/home_page.dart';
-
-import 'package:hothapp/pages/login_page.dart';
-import 'package:hothapp/services/auth_service.dart';
+import 'package:hothapp/service/auth_service.dart';
 import 'package:hothapp/shared/widgets/widgets.dart';
-
 
 class ProfilePage extends StatefulWidget {
   String userName;

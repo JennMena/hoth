@@ -1,67 +1,63 @@
-import 'package:flutter/material.dart';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hothapp/helper/helper_function.dart';
+import 'package:hothapp/pages/auth/login_page.dart';
 import 'package:hothapp/pages/home_page.dart';
-import 'package:hothapp/pages/login_page.dart';
 import 'package:hothapp/shared/constants.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if (kIsWeb)
-  {
+
+  if (kIsWeb) {
     await Firebase.initializeApp(
-      options: FirebaseOptions(apiKey: Constants.apiKey, 
-    appId: Constants.appId, messagingSenderId: Constants.messagingSenderId, projectId: Constants.projectId)
-    );
+        options: FirebaseOptions(
+            apiKey: Constants.apiKey,
+            appId: Constants.appId,
+            messagingSenderId: Constants.messagingSenderId,
+            projectId: Constants.projectId));
+  } else {
+    await Firebase.initializeApp();
   }
-  else
-  {
-      await Firebase.initializeApp();
-  }
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp ({Key? key}) : super(key:key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
-
 }
 
-class _MyAppState extends State<MyApp> 
-{
+class _MyAppState extends State<MyApp> {
   bool _isSignedIn = false;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    getUserLogggedInStatus();
+    getUserLoggedInStatus();
   }
 
-  getUserLogggedInStatus() async {
+  getUserLoggedInStatus() async {
     await HelperFunctions.getUserLoggedInStatus().then((value) {
       if (value != null) {
-        _isSignedIn = value;
-        /*
-                setState(() {
+        setState(() {
           _isSignedIn = value;
         });
-         */
       }
     });
   }
 
   @override
-  Widget build(BuildContext context){
-  return MaterialApp(
-    theme: ThemeData(
-      primaryColor: Constants().primaryColor,
-      scaffoldBackgroundColor: Colors.white,
-    ),
-    debugShowCheckedModeBanner: false,
-    home: _isSignedIn ? const HomePage() : const LoginPage(),
-  );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+          primaryColor: Constants().primaryColor,
+          scaffoldBackgroundColor: Colors.white),
+      debugShowCheckedModeBanner: false,
+      home: _isSignedIn ? const HomePage() : const LoginPage(),
+    );
   }
 }

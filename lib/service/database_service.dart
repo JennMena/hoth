@@ -1,27 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DatabaseService{
+class DatabaseService {
   final String? uid;
   DatabaseService({this.uid});
 
-  //References for out collections
+  // reference for our collections
   final CollectionReference userCollection =
-   FirebaseFirestore.instance.collection("users");
-
+      FirebaseFirestore.instance.collection("users");
   final CollectionReference groupCollection =
-   FirebaseFirestore.instance.collection("groups");
+      FirebaseFirestore.instance.collection("groups");
 
-  //Updating 
-
-  Future updateUserData(String name, String email) async{
+  // saving the userdata
+  Future savingUserData(String fullName, String email) async {
     return await userCollection.doc(uid).set({
-      "name": name,
+      "fullName": fullName,
       "email": email,
       "groups": [],
       "profilePic": "",
       "uid": uid,
-      "restaurants": [1,0,0],
-      "books": [1,0,0],
     });
   }
 
@@ -32,7 +28,6 @@ class DatabaseService{
     return snapshot;
   }
 
-  
   // get user groups
   getUserGroups() async {
     return userCollection.doc(uid).snapshots();
@@ -138,5 +133,4 @@ class DatabaseService{
       "recentMessageTime": chatMessageData['time'].toString(),
     });
   }
-
 }
