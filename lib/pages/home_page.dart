@@ -3,6 +3,7 @@ import 'package:chatapp firebase/service/auth_service.dart';
 import 'package:chatapp firebase/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:hothapp/helper/helper_function.dart';
+import 'package:hothapp/pages/login_page.dart';
 import 'package:hothapp/pages/profile_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage>{
                         actions: [
                           IconButton(
                             onPressed: (){
-                            Navigator.pop(context)
+                            Navigator.pop(context);
                           },
                           icon: const Icon(Icons.cancel, color: Colors.red,
                           ),
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage>{
                             Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
                                 builder: (context)=> const LoginPage()), 
-                            (route) => false)
+                            (route) => false);
                           },
                           icon: const Icon(Icons.done, color: Colors.green,
                           ),
